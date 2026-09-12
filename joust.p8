@@ -16,6 +16,8 @@ function _update()
 		update_td()
 	elseif state=="side view" then
 		update_sv()
+	elseif state=="scoreboard" then
+		update_sb()
 	end
 end
 
@@ -25,6 +27,8 @@ function _draw()
 		draw_td()
 	elseif state=="side view" then
 		draw_sv()
+	elseif state=="scoreboard" then
+		draw_sb()
 	end
 end
 
@@ -145,7 +149,8 @@ function update_sv()
 	if p1x==102 then
 		draw_sv()
 		score_lance()
-		stop()
+		init_sb()
+		state="scoreboard"
 	end
 end
 
@@ -263,6 +268,54 @@ function d_lance()
 	end
 end
 
+-->8
+--display score--
+
+--sb=scoreboard--
+function init_sb()
+	p1ts=p1_total_score
+	p2ts=p2_total_score
+	winner=" test "
+	text_out_1="p1: "..p1ts.."  vs  p2: "..p2ts
+	if p1ts>=p2ts then
+		winner="p1"
+	else
+		winner="p2"
+	end
+	
+end
+
+
+function update_sb()
+	if btnp(❎) then
+		_init()
+	end
+end
+
+
+function draw_sb()
+	cls()
+	map(19,19)
+	print(text_out_1,30,40,7)
+	print(winner.." wins!",50,60,7)
+	print("press x to restart",30,80,7)
+end
+-->8
+-- title screen--
+
+function init_ts()
+
+end
+
+
+function update_ts()
+
+end
+
+
+function draw_ts()
+	
+end
 __gfx__
 0000000000000c660000000000000c660000000000000c66000000000066660000666600000000600000000000000000000000000000000d0000000000000000
 000000000000006600000000000000660000000000000066000000000688886006cccc60000440600000000000000000000000000000ddd00000000000000000
