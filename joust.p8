@@ -4,7 +4,6 @@ __lua__
 --main--
 
 function _init()
-
 	p1_total_score=0
 	p2_total_score=0
 	state="top down"
@@ -39,7 +38,6 @@ end
 function init_td()
 	p1_td_score=0
 	p2_td_score=0
-	
 	init_player_1_td()
 	init_player_2_td()
 end
@@ -70,8 +68,6 @@ function score_steering()
 		print("p1: "..p1_total_score)
 		print("p2: "..p2_total_score)
 end
-
-
 -->8
 --player 1 top down--
 
@@ -119,15 +115,14 @@ function init_player_2_td()
 	speed=1
 	score=flr(rnd(6))+6
 	move_to=score+40
-	
 end
 
 
 function update_player_2_td()
-		p2y+=speed
-		if p2x<move_to then
-			p2x+=1
-		end
+	p2y+=speed
+	if p2x<move_to then
+		p2x+=1
+	end
 end
 
 
@@ -223,10 +218,8 @@ function d_lance()
 	lx2=lx1+ll
 	ly2=ly1+lv
 	tip=ly2
-	
 	dx=lx2-lx1
 	dy=ly2-ly1
-	
 	if dx>0 then
 		xsign=1
 	else
@@ -236,11 +229,9 @@ function d_lance()
 		ysign=1
 	else
 		ysign=-1
-	end 
-	
+	end
 	dx=abs(dx)
 	dy=abs(dy)
-	
 	if dx>dy then
 		xx=xsign
 		xy=0
@@ -250,10 +241,8 @@ function d_lance()
 		dx=dy
 		dy=dx
 	end
-	
 	d=2*dy-dx
 	y=0
-	
 	for x=0,dx+1 do
 		cx=lx1+(x*xx)+(y*yx)
 		cy=ly1+(x*xy)+(y*yy)
@@ -266,13 +255,12 @@ function d_lance()
 		else--draw lance--
 			pset(cx, cy, 13)
 		end
-		
 		if d>=0 then
 			y+=1
 			d-=2*dx
 		end
 		d+=2*dy
-	end	
+	end
 end
 
 __gfx__
