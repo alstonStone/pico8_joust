@@ -4,10 +4,8 @@ __lua__
 --main--
 
 function _init()
-	p1_total_score=0
-	p2_total_score=0
-	state="top down"
-	init_td()
+	state="title"
+	init_ts()
 end
 
 
@@ -18,6 +16,8 @@ function _update()
 		update_sv()
 	elseif state=="scoreboard" then
 		update_sb()
+	elseif state=="title" then
+		update_ts()
 	end
 end
 
@@ -29,6 +29,8 @@ function _draw()
 		draw_sv()
 	elseif state=="scoreboard" then
 		draw_sb()
+	elseif state=="title" then
+		draw_ts()
 	end
 end
 
@@ -40,6 +42,8 @@ end
 --top down manager--
 
 function init_td()
+	p1_total_score=0
+	p2_total_score=0
 	p1_td_score=0
 	p2_td_score=0
 	init_player_1_td()
@@ -76,33 +80,46 @@ end
 --player 1 top down--
 
 function init_player_1_td()
-	p1x=80
+	p1x=65
 	p1y=120
 	speed=1
-	steer_strength=2
+	steer=0
+	steer_str=2
 	sway=1
-	bump=10
+	bump=0
+	bump_str=4
 end
 
 
 function update_player_1_td()
-	if p1x<60 then
-		p1x+=bump
-	else
-		sway=flr(rnd(2))
-		if btn(⬅️) then
-			p1x-=steer_strength
-		elseif btn(➡️) then
-			p1x+=steer_strength
-		end
-		p1x+=sway
-		p1y-=speed
+	
+	if p1x>75 then
+		p1x=75
+	elseif p1x<60 then
+		bump=bump_str
 	end
+	p1x+=bump
+	if bump>0 then
+		bump-=1
+	end
+	
+	if btn(❎) then
+		steer=steer_str
+	end
+	p1x-=steer
+	if steer>0 then
+		steer-=1
+	end
+	
+
+	
+	p1x+=sway
+	p1y-=speed
 end
 
 
 function draw_player_1_td()
-	spr(8,p1x,p1y)
+	spr(9,p1x,p1y)
 	--print("x:"..p1x..",y:"..p1y)
 	pset(44, 63, 0)--
 	--pset(63, 71, 0)--
@@ -192,10 +209,11 @@ function update_p1_sv()
 		frame=1
 	end
 	
+	
 end
 
 function u_lv()--update lance angle--
-	if btnp(⬆️) then
+	if btn(❎) then
 		lift=lift_str
 	end
 	lv-=lift
@@ -204,6 +222,8 @@ function u_lv()--update lance angle--
 	end
 	if lv>10then
 		lv=10
+	elseif lv<-15  then
+		lv=-15
 	end
 	lv+=1
 end
@@ -212,6 +232,7 @@ end
 function draw_p1_sv()
 	spr(frame,p1x,p1y,2,2)
 	d_lance()
+	print(lv)
 end
 
 
@@ -287,8 +308,9 @@ end
 
 
 function update_sb()
-	if btnp(❎) then
-		_init()
+	if btnp(🅾️) then
+		state="top down"
+		init_td()
 	end
 end
 
@@ -298,7 +320,7 @@ function draw_sb()
 	map(19,19)
 	print(text_out_1,30,40,7)
 	print(winner.." wins!",50,60,7)
-	print("press x to restart",30,80,7)
+	print("press o to restart",30,80,7)
 end
 -->8
 -- title screen--
@@ -309,12 +331,18 @@ end
 
 
 function update_ts()
-
+	if btnp(🅾️) then
+		state="top down"
+		init_td()
+	end
 end
 
 
 function draw_ts()
-	
+	cls()
+	map(19,19)
+	print("drunk joust",38,40,7)
+	print("press o to start",30,60,7)
 end
 __gfx__
 0000000000000c660000000000000c660000000000000c66000000000066660000666600000000600000000000000000000000000000000d0000000000000000
