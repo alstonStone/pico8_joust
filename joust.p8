@@ -44,6 +44,8 @@ end
 --top down manager--
 
 function init_td()
+	sfx(-1,1)
+	sfx(0,1)
 	p1_total_score=0
 	p2_total_score=0
 	p1_td_score=0
@@ -59,6 +61,7 @@ end
 function update_td()
 	if p1y==60 then
 		if scored!=true then
+			sfx(-1,1)
 			score_steering()
 			scored=true
 		end
@@ -219,7 +222,7 @@ end
 -->8
 --player 1 side view--
 function init_p1_sv()
-	p1x=-50
+	p1x=-32
 	p1y=50
 	speed=1
 	lv=0--lance value, angle tilt--
