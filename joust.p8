@@ -10,7 +10,6 @@ function _init()
 --	state="scoreboard"
 	
 	state="title"
-	init_ts()
 	sfx(1,1)
 end
 
@@ -77,8 +76,7 @@ function update_td()
 		end
 		if wait>0 then
 			wait-=1
-		else
-			
+		else	
 			init_sv()
 			state="side view"
 		end
@@ -113,11 +111,14 @@ function draw_td()
 	end
 end
 
+
 function score_steering()
 		p1_td_score=73-ceil(p1x)  
 		p2_td_score=p2x-40
 		add_scores_to_total(p1_td_score,p2_td_score)
 end
+
+
 -->8
 --player 1 top down--
 
@@ -135,7 +136,6 @@ end
 
 
 function update_player_1_td()
-	
 	if p1x>75 then
 		p1x=75
 	elseif p1x<60 then
@@ -145,7 +145,6 @@ function update_player_1_td()
 	if bump>0 then
 		bump-=1
 	end
-	
 	if btn(❎) then
 		steer=steer_str
 	end
@@ -165,10 +164,10 @@ end
 
 -->8
 --player 2 top down--
+
 --73 to 60 is scoreing pixel range of p1
 -- so that range is used to pick p2
 function init_player_2_td()
-
 	speed=1
 	score=flr(rnd(6))+6
 	move_to=score+40
@@ -188,6 +187,8 @@ end
 function draw_player_2_td()
 	spr(24,p2x,p2y)
 end
+
+
 -->8
 --side view manager--
 
@@ -203,10 +204,8 @@ end
 
 
 function update_sv()
-	
 	if p1x>=102 then
 		sfx(-1,1)
-		
 		if scored==true then
 			if wait>0 then
 				wait-=1
@@ -221,7 +220,6 @@ function update_sv()
 		update_p1_sv()
 		draw_sv()
 	end
-	
 end
 
 
@@ -235,13 +233,14 @@ function draw_sv()
 	end
 end
 
+
 function score_lance()
 	p1_sv_score=20-(abs(lv+2))
 	p2_sv_score=flr(rnd(5))+15
 	add_scores_to_total(p1_sv_score,p2_sv_score)
-
 	scored=true
 end
+
 
 -->8
 --player 1 side view--
@@ -265,9 +264,8 @@ function update_p1_sv()
 	if frame>5 then
 		frame=1
 	end
-	
-	
 end
+
 
 function u_lv()--update lance angle--
 	if btn(❎) then
@@ -345,6 +343,7 @@ function d_lance()
 	end
 end
 
+
 -->8
 --scoreboard--
 
@@ -372,9 +371,7 @@ function init_sb()
 		foreach(game_score,set_spr)
 		if p1c>=2 or p2c>=2 then
 			game_over=true
-		end
-			
-		
+		end		
 end
 
 
@@ -391,8 +388,7 @@ end
 
 
 function draw_sb()
-	cls()
-                              
+	cls()                     
 	spr(s1,31,20,2,2)
 	spr(s2,52,20,2,2)
 	spr(s3,73,20,2,2)
@@ -404,6 +400,7 @@ function draw_sb()
 	print("press 🅾️ to continue",20,90,7)
 end
 
+
 function set_spr(value)
 	spr_num=0
 	if value==1 then
@@ -413,7 +410,6 @@ function set_spr(value)
 		spr_num=10
 		p2c+=1
 	end
-	
 	if round_count==1 then
 		s1=spr_num
 	elseif round_count==2 then
@@ -421,16 +417,12 @@ function set_spr(value)
 	elseif round_count==3 then
 		s3=spr_num
 	end
-	
 	round_count+=1
 end
+
+
 -->8
 -- title screen--
-
-function init_ts()
-
-end
-
 
 function update_ts()
 	if btnp(🅾️) then
@@ -444,6 +436,8 @@ function draw_ts()
 	print("drunk joust",38,40,7)
 	print("press 🅾️ to start",30,60,7)
 end
+
+
 -->8
 --rules--
 
@@ -454,12 +448,14 @@ function update_rules()
 	end
 end
 
+
 function draw_rules()
 	cls()
 	map(18,18)
 	print_rules()
 end
 	
+
 function print_rules()
 	print("how to play",40,10,7)
 	
@@ -473,6 +469,8 @@ function print_rules()
 	
 	print("press 🅾️ to continue",20,110,7)
 end
+
+
 __gfx__
 0000000000000c660000000000000c660000000000000c6600000000006666000066660005000000000006666660000000000666666000000000066666600000
 000000000000006600000000000000660000000000000066000000000688886006cccc6005044000000668888886600000066cccccc660000006655555566000
