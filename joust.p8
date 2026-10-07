@@ -228,8 +228,8 @@ function draw_sv()
 	map(18,0)
 	draw_p1_sv()
 	if scored==true then
-		print("p1: "..p1_total_score,60,30,0)
-		print("p2: "..p2_total_score,60,40,0)
+		print("p1: "..p1_total_score,60,20,0)
+		print("p2: "..p2_total_score,60,30,0)
 	end
 end
 
